@@ -14,11 +14,16 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MapScreen from "./screens/MapScreen";
+import { createContext, useState } from "react";
 // 1) Set up redux
 // 2)
 
+const UserContext = createContext();
+
 export default function App() {
   const Stack = createNativeStackNavigator();
+  const [user, setUser] = useState("using context");
+
 
   return (
     <Provider store={store}>
@@ -29,23 +34,24 @@ export default function App() {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             keyboardVerticalOffset={Platform.OS === "ios" ? -220 : 0}
           >
-            <Stack.Navigator>
-              <Stack.Screen
-                name="HomeScreen"
-                component={HomeScreen}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="MapScreen"
-                component={MapScreen}
-                options={{
-                  headerShown: false,
-                }}
-              />
-            </Stack.Navigator>
-
+            <UserContext.Provider value={user}>
+              <Stack.Navigator>
+                <Stack.Screen
+                  name="HomeScreen"
+                  component={HomeScreen}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="MapScreen"
+                  component={MapScreen}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+              </Stack.Navigator>
+            </UserContext.Provider>
             {/* <HomeScreen /> */}
           </KeyboardAvoidingView>
         </SafeAreaProvider>

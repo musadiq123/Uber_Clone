@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import tw from "twrnc";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
@@ -12,6 +12,9 @@ import { Icon } from "@rneui/base";
 const NavigateCard = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const user = useContext("");
+
 
   return (
     <SafeAreaView style={tw`bg-white flex-1`}>
@@ -63,7 +66,7 @@ const NavigateCard = () => {
             color="black"
             size={16}
           />
-          <Text style={tw`text-black text-center`}>Eats</Text>
+          <Text style={tw`text-black text-center`}>Eats{user}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
